@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "com.github.alekseyvideman.services.grpc";
+option java_multiple_files = true;
+
+service WassupService {
+  rpc SayWassup(BroMessage) returns (BroResponse);
+}
+
+message BroMessage {
+  string to_whom = 1;
+}
+
+message BroResponse {
+  string from_who = 1;
+}

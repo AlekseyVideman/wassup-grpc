@@ -1,0 +1,41 @@
+plugins {
+    id "com.google.protobuf" version "0.9.4"
+    id 'java'
+}
+
+group = 'com.github.alekseyvideman'
+version = '1.0-SNAPSHOT'
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'build/generated/source/proto/main/grpc'
+            srcDirs 'build/generated/source/proto/main/java'
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'com.google.protobuf:protobuf-java:3.10.0'
+    compileOnly 'io.grpc:grpc-all:1.25.0'
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.22.3"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.57.2'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
